@@ -1,10 +1,35 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
+import {
+  calculateDivisions,
+  DivisionParticipant,
+  DivisionMode,
+} from '../../utils/division';
+
+type Body = {
+  description: string;
+  amount: number;
+  date: string;
+  paidById: string;
+  mode?: DivisionMode;
+  participants?: DivisionParticipant[];
+  participantIds?: string[];
+};
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { description, amount, date, paidById, participantIds } = body;
+    const body: Body = await req.json();
+    const {
+      description,
+      amount,
+      date,
+      paidById,
+      mode = 'equal',
+      participants,
+      participantIds,
+    } = body;
+
+    const divisions = calculateDivisions(mode, amount, participants, participantIds);
 
     const expense = await prisma.expense.create({
       data: {
@@ -13,20 +38,19 @@ export async function POST(req: Request) {
         date: new Date(date),
         paidById,
         divisions: {
-          create: participantIds.map((userId: string) => ({
-            userId,
-            amountOwed: amount / participantIds.length,
-          })),
+          create: divisions,
         },
       },
     });
 
     return NextResponse.json(expense);
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     console.error('ERROR EN POST /api/expenses:', error);
-    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
+    return NextResponse.json({ error: error.message ?? 'Error interno' }, { status: 500 });
   }
 }
+
 
 export async function GET() {
   try {
@@ -48,3 +72,5 @@ export async function GET() {
     return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }
+
+
