@@ -1,40 +1,34 @@
-<<<<<<< HEAD
-# gestor-gastos-unir
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Gestor de Gastos Compartidos Generada al 100% con IA
 
-## Getting Started
+Una aplicación web que permite a grupos de usuarios registrar, dividir y gestionar gastos de forma sencilla y visual.
 
-First, run the development server:
+---
+
+## ✨ Funcionalidades
+
+- Registro e inicio de sesión con autenticación por token (JWT).
+- Crear nuevos gastos con participantes, montos y fecha.
+- Divisiones automáticas o personalizadas (por porcentaje o importe).
+- Panel con resumen financiero, historial de gastos, deudas y pagos realizados.
+- Página de detalle por gasto.
+- Gráfico de evolución mensual.
+- Interfaz responsive y moderna con Tailwind CSS.
+
+---
+
+## 🧱 Tecnologías utilizadas
+
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: API Routes de Next.js con Prisma ORM
+- **Base de datos**: SQLite (modo desarrollo)
+- **Gráficos**: `react-chartjs-2` + `chart.js`
+- **Autenticación**: JWT manual con localStorage
+
+---
+
+## 🚀 Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> b657fad893dd2bb8c7497958cc6958052e7a091d
+git clone https://github.com/tuusuario/gestor-gastos.git
+cd gestor-gastos
+npm install
