@@ -4,6 +4,7 @@ Una aplicación web que permite a grupos de usuarios registrar, dividir y gestio
 
 ---
 
+
 ## ✨ Funcionalidades
 
 - Registro e inicio de sesión con autenticación por token (JWT).
@@ -30,5 +31,9 @@ Una aplicación web que permite a grupos de usuarios registrar, dividir y gestio
 
 ```bash
 git clone https://github.com/tuusuario/gestor-gastos.git
-cd gestor-gastos
+cd gestor-gastos 
 npm install
+npm run dev
+
+//base de datos visual 
+npx prisma studio

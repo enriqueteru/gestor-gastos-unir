@@ -26,7 +26,17 @@ export default function NewExpensePage() {
       .then((data) => setUsers(data));
   }, []);
 
+  useEffect(() => {
+    if (mode === 'equal' && amount > 0 && participants.length > 0) {
+      const valuePerPerson = parseFloat((amount / participants.length).toFixed(2));
+      setParticipants((prev) =>
+        prev.map((p) => ({ ...p, value: valuePerPerson }))
+      );
+    }
+  }, [mode, amount, participants.length]);
+
   const addParticipant = () => {
+    if (participants.length >= users.length) return;
     setParticipants([...participants, { userId: '', value: 0 }]);
   };
 
@@ -133,10 +143,18 @@ export default function NewExpensePage() {
                 onChange={(e) => updateParticipant(i, 'value', e.target.value)}
                 placeholder={mode === 'percentage' ? '% de participación' : 'Cantidad €'}
                 required
+                disabled={mode === 'equal'}
               />
             </div>
           ))}
-          <button type="button" onClick={addParticipant} className="text-sm underline mt-1">+ Añadir participante</button>
+          <button
+            type="button"
+            onClick={addParticipant}
+            className={`text-sm underline mt-1 ${participants.length >= users.length ? 'text-gray-400 cursor-not-allowed' : ''}`}
+            disabled={participants.length >= users.length}
+          >
+            + Añadir participante
+          </button>
         </div>
 
         {error && <p className="text-sm text-red-600">{error}</p>}

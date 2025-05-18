@@ -1,0 +1,143 @@
+Listado de prompts
+(Añadimos como contexto los diagramas UML y entrega 1 para potenciar los prompts)
+
+Queremos desarrollar una aplicación de gastos compartidos usando Next.js tanto para el frontend como para el backend, incluyendo la base de datos. ¿Es una buena elección?
+
+
+¿Podemos usar la librería shadcn/ui como sistema de diseño para la interfaz?
+
+
+Crea la estructura base del proyecto con Next.js, Prisma, Tailwind CSS y shadcn/ui.
+
+
+Explícame paso a paso cómo instalar y configurar Next.js con todas las dependencias necesarias para este proyecto.
+
+
+¿Dónde debería ubicar el archivo lib/prisma.ts: dentro o fuera de la carpeta app/?
+
+
+Crea el endpoint POST /api/expenses para registrar gastos utilizando Prisma.
+
+
+Diseña los modelos de datos en schema.prisma según los requisitos funcionales del sistema.
+
+
+¿Puedo probar el endpoint de creación de gastos desde Postman? ¿Cómo debería hacerlo?
+
+
+¿La URL http://localhost:3000/api/expenses es la correcta para consumir la API en desarrollo local?
+
+
+Next.js está usando otro puerto (3002). ¿Cómo afecta esto a las pruebas de los endpoints?
+
+
+Estoy recibiendo un error 404 al acceder al endpoint. ¿Qué puede estar fallando?
+
+
+Según los endpoints actuales, ¿puedes darme un ejemplo de JSON válido para registrar un nuevo gasto correctamente?
+
+
+Sigo cometiendo errores al usar Prisma Client. ¿Podrías revisar si hay que ajustar la configuración o el esquema?
+
+
+Este es el contenido de mi archivo schema.prisma. ¿Está todo bien estructurado?
+
+
+Me aparece un error de permisos con node_modules/@prisma/client. ¿Cómo lo soluciono?
+
+
+Según el documento de requisitos, ¿qué endpoints de la API aún no hemos implementado?
+
+
+Crea el endpoint /api/users/[id]/balance para que cada usuario pueda consultar su saldo personal.
+
+
+Implementa los endpoints GET /api/expenses y GET /api/expenses/:id para consultar gastos.
+
+
+Dame un listado completo de todos los prompts que te he hecho durante esta conversación.
+
+
+Mejora la redacción de todos los prompts anteriores para que puedan documentarse como parte del desarrollo asistido por IA.
+Indícame qué endpoints de la API aún no hemos implementado según los requisitos funcionales del proyecto.
+
+
+Comienza a implementar los endpoints que faltan.
+
+
+El endpoint DELETE /api/expenses/:id me devuelve error 500. ¿Cuál puede ser la causa y cómo lo soluciono?
+
+
+Estoy recibiendo un error de validación en Prisma al intentar usar onDelete: Cascade en un campo incorrecto. ¿Cómo lo configuro correctamente?
+
+
+Implementa el endpoint PUT /api/expenses/:id para editar un gasto existente, incluyendo la actualización de sus participantes.
+
+
+Implementa los siguientes endpoints de autenticación con JWT: /api/auth/register, /api/auth/login, /api/auth/logout y /api/auth/me.
+
+
+Explícame cómo puedo probar el sistema de autenticación (registro, login y obtención de usuario) desde Postman paso a paso.
+
+
+El endpoint de login devuelve un error 401 aunque las credenciales son correctas. ¿Dónde puede estar el fallo?
+
+
+Estoy recibiendo un error 500 en el endpoint GET /api/auth/me. ¿Cómo puedo solucionarlo y capturar bien los errores?
+
+
+Quiero eliminar toda la base de datos desde Prisma. ¿Cómo lo hago correctamente?
+
+
+Crea un endpoint de testing para resetear toda la base de datos desde una ruta tipo /api/debug/reset.
+
+
+Dame ejemplos de peticiones completas al endpoint /api/expenses usando estos usuarios registrados, en diferentes modos de reparto (equal, percentage, custom).
+
+
+Crea el endpoint GET /api/users/summary que devuelva el resumen financiero completo (balance e historial de gastos) de todos los usuarios.
+
+
+Estoy usando el endpoint PUT /api/expenses, pero devuelve un error 405. ¿Qué está ocurriendo y cómo lo soluciono?
+"Dame el endpoint global de balances para usuario."
+
+
+"¿Podría configurar si la división es desigual, por porcentaje o mediante una fórmula?"
+
+
+"Quiero que la división del gasto se haga automáticamente en partes iguales."
+
+
+"Genera ejemplos para peticiones de gastos usando estos usuarios."
+
+
+"Dame todos los endpoints que faltan por implementar según los requisitos funcionales."
+
+
+"Haz la pantalla de detalle de gasto. Al hacer clic en un gasto desde el dashboard, debe mostrar sus detalles y permitir pagar si el usuario debe algo."
+
+
+"Haz que en el detalle se muestra también si los demás participantes han pagado o no."
+
+
+"Quiero que en el dashboard pueda hacer clic en un gasto y ver el detalle."
+
+
+"Mejora el diseño del dashboard. Quiero algo más atractivo visualmente."
+
+
+"Muestra feedback cuando no hay contenido en alguna sección del dashboard."
+"Rediseña el dashboard para que tenga dos columnas, aproveche bien la pantalla y muestre la gráfica junto al resumen financiero."
+"Dame todo el código actualizado del dashboard con ese diseño mejorado."
+
+
+"¿Qué paquetes de npm debo instalar para que Chart.js funcione con React?"
+
+
+"El diseño del dashboard sigue viéndose mal. Mejóralo: usa dos columnas, centra los elementos, elimina bordes y usa colores suaves con sombras ligeras."
+
+
+
+
+
+

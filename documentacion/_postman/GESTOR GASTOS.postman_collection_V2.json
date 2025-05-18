@@ -387,7 +387,7 @@
 					"response": []
 				},
 				{
-					"name": "USERS BY ID SHOW BALANCE Copy",
+					"name": "USERS BY ID SHOW BALANCE",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -407,7 +407,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/e20e2c92-f556-415a-978f-4f08454b56b3/balance",
+							"raw": "http://localhost:3000/api/users/bf0f0d71-5c63-4809-8e8f-e053080711a6/balance",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -416,7 +416,7 @@
 							"path": [
 								"api",
 								"users",
-								"e20e2c92-f556-415a-978f-4f08454b56b3",
+								"bf0f0d71-5c63-4809-8e8f-e053080711a6",
 								"balance"
 							]
 						}
@@ -455,6 +455,43 @@
 								"users",
 								"e20e2c92-f556-415a-978f-4f08454b56b3",
 								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USERS BY ID SHOW DEBTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Ana\",\n  \"email\": \"ana@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/81c06ecf-66c2-433e-a496-2523a6b3c095/debts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"81c06ecf-66c2-433e-a496-2523a6b3c095",
+								"debts"
 							]
 						}
 					},
@@ -554,7 +591,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Ana2\",\n  \"email\": \"ana2@example.com\",\n  \"password\": \"123456\"\n}\n",
+							"raw": "{\n  \"name\": \"Ana3\",\n  \"email\": \"ana3@example.com\",\n  \"password\": \"123456\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -679,6 +716,34 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "DEBTS",
+			"item": [
+				{
+					"name": "PAY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/debts/b4d87af7-4cf4-467b-84ad-ad9d5a03ec47/pay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"debts",
+								"b4d87af7-4cf4-467b-84ad-ad9d5a03ec47",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "ID = DIVISION ID"
 		}
 	]
 }

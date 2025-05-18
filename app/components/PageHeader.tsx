@@ -39,7 +39,7 @@ export default function PageHeader() {
       <header className="bg-white shadow p-4">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            {!isDashboard && (
+            {!isDashboard && isLoggedIn && (
               <button
                 onClick={() => router.back()}
                 className="text-sm text-blue-600 hover:underline flex items-center"

@@ -8,10 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.js"
   },
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.8.2",
     "bcrypt": "^6.0.0",
     "chart.js": "^4.4.9",
     "jsonwebtoken": "^9.0.2",
