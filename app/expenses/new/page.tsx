@@ -19,6 +19,8 @@ export default function NewExpensePage() {
   const [mode, setMode] = useState<'equal' | 'percentage' | 'custom'>('equal');
   const [participants, setParticipants] = useState<{ userId: string; value: number }[]>([]);
   const [error, setError] = useState('');
+  const [percentageError, setPercentageError] = useState('');
+  const [errorIndex, setErrorIndex] = useState<number | null>(null);
 
   useEffect(() => {
     fetch('/api/users')
@@ -39,10 +41,32 @@ export default function NewExpensePage() {
     if (participants.length >= users.length) return;
     setParticipants([...participants, { userId: '', value: 0 }]);
   };
-
-  const updateParticipant = (index: number, field: 'userId' | 'value', value: any) => {
+  const handlePercentageChange = (idx: number, value: number) => {
     const updated = [...participants];
-    updated[index][field] = field === 'value' ? Number(value) : value;
+    updated[idx].value = Number(value);
+    const total = updated.reduce((acc, p) => acc + p.value, 0);
+
+    if (total > 100) {
+      setPercentageError('La suma de los porcentajes no puede superar el 100%');
+      setErrorIndex(idx);
+    } else {
+      setPercentageError('');
+      setErrorIndex(null);
+    }
+    setParticipants(updated);
+  };
+
+  const updateParticipant = (
+      index: number,
+      field: 'userId' | 'value',
+      value: string | number
+  ) => {
+    const updated = [...participants];
+    if (field === 'value') {
+      updated[index].value = Number(value);
+    } else {
+      updated[index].userId = value as string;
+    }
     setParticipants(updated);
   };
 
@@ -136,15 +160,33 @@ export default function NewExpensePage() {
                   <option key={u.id} value={u.id}>{u.name}</option>
                 ))}
               </select>
-              <input
-                type="number"
-                className="border p-2 rounded w-1/2"
-                value={p.value}
-                onChange={(e) => updateParticipant(i, 'value', e.target.value)}
-                placeholder={mode === 'percentage' ? '% de participación' : 'Cantidad €'}
-                required
-                disabled={mode === 'equal'}
-              />
+              {mode === 'percentage' ? (
+                  <div className="w-1/2">
+                    <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        className={`border p-2 rounded w-full ${errorIndex === i ? 'border-red-500' : ''}`}
+                        value={p.value}
+                        onChange={e => handlePercentageChange(i, Number(e.target.value))}
+                        placeholder="% de participación"
+                        required
+                    />
+                    {percentageError && errorIndex === i && (
+                        <p className="text-red-500 text-xs mt-1">{percentageError}</p>
+                    )}
+                  </div>
+              ) : (
+                  <input
+                      type="number"
+                      className="border p-2 rounded w-1/2"
+                      value={p.value}
+                      onChange={e => updateParticipant(i, 'value', e.target.value)}
+                      placeholder="Cantidad €"
+                      required
+                      disabled={mode === 'equal'}
+                  />
+              )}
             </div>
           ))}
           <button
@@ -157,7 +199,7 @@ export default function NewExpensePage() {
           </button>
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && !percentageError && <p className="text-sm text-red-600">{error}</p>}
 
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Crear gasto</button>
       </form>

@@ -18,6 +18,7 @@ model User {
   name         String
   email        String    @unique
   passwordHash String
+  balance      Float     @default(0)
   expensesPaid Expense[] @relation("PaidBy")
   divisions    Division[]
   createdAt    DateTime  @default(now())

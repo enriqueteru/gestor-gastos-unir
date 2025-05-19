@@ -1,48 +1,47 @@
 // app/api/users/[id]/balance/route.ts
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 type Params = {
   params: { id: string };
 };
 
-export async function GET(_: Request, { params }: Params) {
-  const userId = params.id;
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const user = await prisma.user.findUnique({
+    where: { id: params.id },
+    select: { balance: true },
+  });
+  if (!user) return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+  return NextResponse.json({ saldo: user.balance });
+}
 
+export async function POST(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
   try {
-    const userExists = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true },
-    });
+    const userId = params.id;
+    const { amount } = await req.json();
 
-    if (!userExists) {
-      return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+    if (!userId || typeof amount !== 'number') {
+      return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 });
     }
 
-    // Total pagado como "paidBy"
-    const paidExpenses = await prisma.expense.aggregate({
-      where: { paidById: userId },
-      _sum: { amount: true },
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
     });
-
-    // Total consumido en divisiones
-    const consumed = await prisma.division.aggregate({
-      where: { userId },
-      _sum: { amountOwed: true },
-    });
-
-    const totalPagado = paidExpenses._sum.amount || 0;
-    const totalConsumido = consumed._sum.amountOwed || 0;
-    const saldo = totalPagado - totalConsumido;
 
     return NextResponse.json({
-      userId,
-      totalPagado,
-      totalConsumido,
-      saldo,
+      message: 'Saldo actualizado correctamente',
+      balance: updatedUser.balance,
     });
   } catch (error) {
-    console.error('ERROR EN GET /api/users/[id]/balance:', error);
-    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
+    console.error('Error al añadir saldo:', error);
+    return NextResponse.json({ error: 'Error del servidor' }, { status: 500 });
   }
 }
