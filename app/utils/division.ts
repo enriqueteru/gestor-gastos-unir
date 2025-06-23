@@ -11,6 +11,11 @@ export type DivisionParticipant = {
     participants?: DivisionParticipant[],
     participantIds?: string[]
   ): { userId: string; amountOwed: number }[] {
+    // ⬅️ Validación primero
+    if (!['equal', 'percentage', 'custom'].includes(mode)) {
+      throw new Error(`Modo de división no válido: ${mode}`);
+    }
+  
     if (mode === 'equal') {
       const ids = participantIds ?? participants?.map((p) => p.userId) ?? [];
       if (ids.length === 0) throw new Error('Se requieren participantes');
@@ -40,6 +45,7 @@ export type DivisionParticipant = {
       }));
     }
   
+    // Este punto nunca se alcanzará si la validación inicial está
     throw new Error(`Modo de división no válido: ${mode}`);
   }
   

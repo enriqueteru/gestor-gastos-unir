@@ -1,1 +1,0 @@
-export const signToken = jest.fn(() => 'mocked-jwt-token');
