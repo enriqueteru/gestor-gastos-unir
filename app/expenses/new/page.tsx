@@ -118,17 +118,17 @@ export default function NewExpensePage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm">Descripción</label>
-          <input className="w-full border p-2 rounded" value={description} onChange={(e) => setDescription(e.target.value)} required />
+          <input   placeholder="Descripción" className="w-full border p-2 rounded" value={description} onChange={(e) => setDescription(e.target.value)} required />
         </div>
 
         <div>
           <label className="block text-sm">Importe total (€)</label>
-          <input type="number" className="w-full border p-2 rounded" value={amount} onChange={(e) => setAmount(Number(e.target.value))} required />
+          <input   placeholder="Importe total" type="number" className="w-full border p-2 rounded" value={amount} onChange={(e) => setAmount(Number(e.target.value))} required />
         </div>
 
         <div>
           <label className="block text-sm">Fecha</label>
-          <input type="date" className="w-full border p-2 rounded" value={date} onChange={(e) => setDate(e.target.value)} required />
+          <input   placeholder="Fecha" type="date" className="w-full border p-2 rounded" value={date} onChange={(e) => setDate(e.target.value)} required />
         </div>
 
         <div>
