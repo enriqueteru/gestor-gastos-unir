@@ -81,8 +81,9 @@ export default function DashboardPage() {
   };
 
   if (loading) return <div className="p-6 text-center">Cargando panel...</div>;
-  if (!user || !summary) return <div className="p-6 text-center">No hay datos disponibles.</div>;
-
+  if (!user || !summary || !Array.isArray(summary.history)) {
+    return <div className="p-6 text-center">No hay datos disponibles.</div>;
+  }
   const createdByMe = summary.history.filter((e: any) => e.paidBy.id === user.id);
   const debts = summary.history.filter((e: any) =>
       e.divisions.some((d: any) => d.user.id === user.id && !d.paid)
@@ -129,7 +130,7 @@ export default function DashboardPage() {
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm space-y-3">
               <p className="text-sm text-gray-500">Saldo</p>
-              <p className={`text-3xl font-bold ${summary.saldo >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+              <p data-testid="saldo" className={`text-3xl font-bold ${summary.saldo >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {summary.saldo.toFixed(2)} €
               </p>
               <div className="mt-2 space-y-2">
