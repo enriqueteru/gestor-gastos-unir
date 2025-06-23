@@ -31,9 +31,7 @@ export default function NewExpensePage() {
   useEffect(() => {
     if (mode === 'equal' && amount > 0 && participants.length > 0) {
       const valuePerPerson = parseFloat((amount / participants.length).toFixed(2));
-      setParticipants((prev) =>
-        prev.map((p) => ({ ...p, value: valuePerPerson }))
-      );
+      setParticipants((prev) => prev.map((p) => ({ ...p, value: valuePerPerson })));
     }
   }, [mode, amount, participants.length]);
 
@@ -56,11 +54,7 @@ export default function NewExpensePage() {
     setParticipants(updated);
   };
 
-  const updateParticipant = (
-      index: number,
-      field: 'userId' | 'value',
-      value: string | number
-  ) => {
+  const updateParticipant = (index: number, field: 'userId' | 'value', value: string | number) => {
     const updated = [...participants];
     if (field === 'value') {
       updated[index].value = Number(value);
@@ -112,96 +106,137 @@ export default function NewExpensePage() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto p-6 space-y-8">
-      <h1 className="text-xl font-semibold">Nuevo gasto</h1>
+    <main className='max-w-2xl mx-auto p-6 space-y-8'>
+      <h1 className='text-xl font-semibold'>Nuevo gasto</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <div>
-          <label className="block text-sm">Descripción</label>
-          <input   placeholder="Descripción" className="w-full border p-2 rounded" value={description} onChange={(e) => setDescription(e.target.value)} required />
+          <label className='block text-sm'>Descripción</label>
+          <input
+            placeholder='Descripción'
+            className='w-full border p-2 rounded'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </div>
 
         <div>
-          <label className="block text-sm">Importe total (€)</label>
-          <input   placeholder="Importe total" type="number" className="w-full border p-2 rounded" value={amount} onChange={(e) => setAmount(Number(e.target.value))} required />
+          <label className='block text-sm'>Importe total (€)</label>
+          <input
+            placeholder='Importe total'
+            type='number'
+            className='w-full border p-2 rounded'
+            value={amount}
+            onChange={(e) => setAmount(Number(e.target.value))}
+            required
+          />
         </div>
 
         <div>
-          <label className="block text-sm">Fecha</label>
-          <input   placeholder="Fecha" type="date" className="w-full border p-2 rounded" value={date} onChange={(e) => setDate(e.target.value)} required />
+          <label className='block text-sm'>Fecha</label>
+          <input
+            placeholder='Fecha'
+            type='date'
+            className='w-full border p-2 rounded'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
         </div>
 
         <div>
-          <label className="block text-sm">Pagado por</label>
-          <select className="w-full border p-2 rounded" value={paidById} onChange={(e) => setPaidById(e.target.value)} required>
-            <option value="">Seleccionar usuario</option>
+          <label className='block text-sm'>Pagado por</label>
+          <select
+            className='w-full border p-2 rounded'
+            value={paidById}
+            onChange={(e) => setPaidById(e.target.value)}
+            name='paidBy'
+            required
+          >
+            <option value=''>Seleccionar usuario</option>
             {users.map((u) => (
-              <option key={u.id} value={u.id}>{u.name}</option>
+              <option key={u.id} value={u.id}>
+                {u.name}
+              </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label className="block text-sm">Tipo de división</label>
-          <select className="w-full border p-2 rounded" value={mode} onChange={(e) => setMode(e.target.value as any)}>
+          <label className='block text-sm'>Tipo de división</label>
+          <select className='w-full border p-2 rounded' value={mode} onChange={(e) => setMode(e.target.value as any)}>
             {divisionModes.map((m) => (
-              <option key={m.value} value={m.value}>{m.label}</option>
+              <option key={m.value} value={m.value}>
+                {m.label}
+              </option>
             ))}
           </select>
         </div>
 
-        <div className="space-y-2">
-          <label className="block text-sm">Participantes</label>
+        <div className='space-y-2'>
+          <label className='block text-sm'>Participantes</label>
           {participants.map((p, i) => (
-            <div key={i} className="flex gap-2 items-center">
-              <select className="border p-2 rounded w-1/2" value={p.userId} onChange={(e) => updateParticipant(i, 'userId', e.target.value)} required>
-                <option value="">Seleccionar</option>
+            <div key={i} className='flex gap-2 items-center'>
+              <select
+                className='border p-2 rounded w-1/2'
+                value={p.userId}
+                onChange={(e) => updateParticipant(i, 'userId', e.target.value)}
+                required
+              >
+                <option value=''>Seleccionar</option>
                 {users.map((u) => (
-                  <option key={u.id} value={u.id}>{u.name}</option>
+                  <option key={u.id} value={u.id}>
+                    {u.name}
+                  </option>
                 ))}
               </select>
               {mode === 'percentage' ? (
-                  <div className="w-1/2">
-                    <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        className={`border p-2 rounded w-full ${errorIndex === i ? 'border-red-500' : ''}`}
-                        value={p.value}
-                        onChange={e => handlePercentageChange(i, Number(e.target.value))}
-                        placeholder="% de participación"
-                        required
-                    />
-                    {percentageError && errorIndex === i && (
-                        <p className="text-red-500 text-xs mt-1">{percentageError}</p>
-                    )}
-                  </div>
-              ) : (
+                <div className='w-1/2'>
                   <input
-                      type="number"
-                      className="border p-2 rounded w-1/2"
-                      value={p.value}
-                      onChange={e => updateParticipant(i, 'value', e.target.value)}
-                      placeholder="Cantidad €"
-                      required
-                      disabled={mode === 'equal'}
+                    type='number'
+                    min='0'
+                    max='100'
+                    className={`border p-2 rounded w-full ${errorIndex === i ? 'border-red-500' : ''}`}
+                    value={p.value}
+                    onChange={(e) => handlePercentageChange(i, Number(e.target.value))}
+                    placeholder='% de participación'
+                    required
                   />
+                  {percentageError && errorIndex === i && (
+                    <p className='text-red-500 text-xs mt-1'>{percentageError}</p>
+                  )}
+                </div>
+              ) : (
+                <input
+                  type='number'
+                  className='border p-2 rounded w-1/2'
+                  value={p.value}
+                  onChange={(e) => updateParticipant(i, 'value', e.target.value)}
+                  placeholder='Cantidad €'
+                  required
+                  disabled={mode === 'equal'}
+                />
               )}
             </div>
           ))}
           <button
-            type="button"
+            type='button'
             onClick={addParticipant}
-            className={`text-sm underline mt-1 ${participants.length >= users.length ? 'text-gray-400 cursor-not-allowed' : ''}`}
+            className={`text-sm underline mt-1 ${
+              participants.length >= users.length ? 'text-gray-400 cursor-not-allowed' : ''
+            }`}
             disabled={participants.length >= users.length}
           >
             + Añadir participante
           </button>
         </div>
 
-        {error && !percentageError && <p className="text-sm text-red-600">{error}</p>}
+        {error && !percentageError && <p className='text-sm text-red-600'>{error}</p>}
 
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Crear gasto</button>
+        <button type='submit' className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'>
+          Crear gasto
+        </button>
       </form>
     </main>
   );
