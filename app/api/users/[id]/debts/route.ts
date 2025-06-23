@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { prisma } from '@/lib/prisma';
+import { prisma } from '../../../../../lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
